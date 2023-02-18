@@ -1,0 +1,127 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+<!-- <link rel="icon" type="image/png" href="{% static 'app/favicon.ico' %}"> -->
+
+
+<style>
+
+    @font-face {
+    font-family: 'LoewNextArabic';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(/static/fonts/LoewNextArabic-Medium.woff) format('woff');
+    unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC, U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    * {
+    font-family: LoewNextArabic,sans-serif!important;
+    }
+
+    #header {
+        background-color: #efefef
+        /* min-height: 85px */
+    }
+
+    #branding h1,
+    #branding h1 a:link,
+    #branding h1 a:visited {
+        color: #fff;
+    }
+
+    #branding h1 {
+        color: #fff;
+    }
+
+    /* .module h2, .module caption, .inline-group h2 { background:#fff url(/admin_media/img/admin/nav-bg.gif) bottom left repeat-x; color: #333940; } */
+    /* a.section:link, a.section:visited { color: #666666; } */
+    a.section {
+        font-weight: 700;
+        color: #0092DC !important;
+        font-size: 17px;
+        line-height: 1.5em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-bottom: 3px;
+        min-height: 3em;
+        background: #fff
+    }
+
+    .module caption {
+        background: #fff
+    }
+
+    div.breadcrumbs a {
+    color: #222222;
+}
+
+div.breadcrumbs
+{
+     color: #666666
+}
+a:link, a:visited {
+    color: #39596d;
+    text-decoration: none;
+}
+div.breadcrumbs{
+     background: #ffffff ;
+}
+#header a:link, #header a:visited, #header {
+    color: #222222;
+}
+.module h2{
+     background: #8d8d8d;
+}
+
+
+.button.default, input[type=submit].default, .submit-row input.default{
+          background: #0092DC!important;
+
+}
+.button, input[type=submit], input[type=button], .submit-row input, a.button{
+          background: #0092DC!important;
+
+}
+
+#changelist #toolbar form input[type="submit"]{
+     color: #fff!important
+}
+#changelist .actions .button{
+     color: #fff!important
+}
+ /* Designing for scroll-bar */
+ ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        position: absolute;
+    }
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+</style>
+{% endblock %}
+
+{% block branding %}
+
+    <a href="{% url 'admin:index' %}" style="color: #0092DC; font-weight: bold;">
+        تيرا سيرفس
+    </a>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+venv
+*.sqlite3
+k8s
+*.pyc
+*.dockerfile
+#migrations/*
+readme
+.git
+media

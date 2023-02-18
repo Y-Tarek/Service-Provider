@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+    tera-services:
+        build: .
+        command: bash runserver.sh
+        volumes:
+            - ./:/usr/src/app/
+        environment:
+            - DEBUG=True
+            - SECRET_KEY=foo
+            - SQL_ENGINE=django.db.backends.postgresql
+            - SQL_DB=postgres
+            - SQL_USER=postgres
+            - SQL_PASSWORD=postgres
+            - SQL_HOST=postgres-tera-services
+            - SQL_PORT=5432
+        depends_on:
+            - postgres-tera-services
+     
+    postgres-tera-services:
+        image: postgres:12.1-alpine
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=postgres
+
+    nginx-tera-services:
+        image: nginx
+        volumes:
+            - ./nginx_conf:/etc/nginx/conf.d
+            - ./media:/usr/src/app/media
+        ports:
+            - 80:80
+        depends_on:
+            - tera-services
+
+volumes:
+  postgres_data:
