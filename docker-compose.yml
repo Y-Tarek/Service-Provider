@@ -1,7 +1,6 @@
 version: '3.7'
-
 services:
-    tera-services:
+    sr-provider:
         build: .
         command: bash runserver.sh
         volumes:
@@ -13,12 +12,12 @@ services:
             - SQL_DB=postgres
             - SQL_USER=postgres
             - SQL_PASSWORD=postgres
-            - SQL_HOST=postgres-tera-services
+            - SQL_HOST=postgres-service-provider
             - SQL_PORT=5432
         depends_on:
-            - postgres-tera-services
+            - postgres-service-provider
      
-    postgres-tera-services:
+    postgres-service-provider:
         image: postgres:12.1-alpine
         volumes:
             - postgres_data:/var/lib/postgresql/data/
@@ -27,15 +26,15 @@ services:
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_DB=postgres
 
-    nginx-tera-services:
+    nginx-service-provider:
         image: nginx
         volumes:
             - ./nginx_conf:/etc/nginx/conf.d
             - ./media:/usr/src/app/media
         ports:
-            - 80:80
+            - 8888:80
         depends_on:
-            - tera-services
+            - sr-provider
 
 volumes:
   postgres_data:

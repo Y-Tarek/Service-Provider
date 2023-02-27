@@ -1,6 +1,6 @@
 from django.contrib import admin,messages
 from .models import *
-from nested_admin import NestedTabularInline,NestedModelAdmin,NestedStackedInline
+import nested_admin
 from rangefilter.filters import DateRangeFilter
 from django.urls import reverse
 from django.utils.html import format_html
@@ -13,25 +13,25 @@ class RegionInline(admin.TabularInline):
     model = Region
     extra = 0
 
-class SubServiceInline(NestedStackedInline):
+class SubServiceInline(nested_admin.NestedStackedInline):
     model = SubService
     extra = 0
 
-class ServiceRequirementChoicesInline(NestedTabularInline):
+class ServiceRequirementChoicesInline(nested_admin.NestedTabularInline):
     model = ServiceRequirementChoices
     extra = 0
 
-class ServiceRequirementInline(NestedStackedInline):
+class ServiceRequirementInline(nested_admin.NestedStackedInline):
     model = ServiceRequirement
     inlines = [ServiceRequirementChoicesInline]
     extra = 0
 
-class ServiceInline(NestedStackedInline):
+class ServiceInline(nested_admin.NestedStackedInline):
     model = Service
     inlines = [ServiceRequirementInline,SubServiceInline]
     extra = 0
 
-class OfferInline(NestedStackedInline):
+class OfferInline(nested_admin.NestedStackedInline):
     model = Offer
     extra = 0
 ########### End of Inlines ##############
@@ -70,7 +70,7 @@ class CountryAdmin(admin.ModelAdmin):
     inlines = [RegionInline]
     list_display = ['postal_code','name','currency']
 
-class ServiceProviderAdmin(NestedModelAdmin):
+class ServiceProviderAdmin(nested_admin.NestedModelAdmin):
     list_display = ['name','commercial_name','owner','type','commercial_record','phone_number','email']
     list_filter = ['type__name']
     search_fields = ['name','commercial_name']
@@ -118,13 +118,13 @@ class ServiceProviderTeamAdmin(admin.ModelAdmin):
     filter_horizontal = ['technicals']
     autocomplete_fields = ['team_field','provider','team_region']
 
-class ServiceFieldAdmin(NestedModelAdmin):
+class ServiceFieldAdmin(nested_admin.NestedModelAdmin):
     search_fields = ['field_name']
     inlines = [ServiceInline]
     list_display =['field_name']
     
 
-class ServiceAdmin(NestedModelAdmin):
+class ServiceAdmin(nested_admin.NestedModelAdmin):
     inlines = [ServiceRequirementInline,OfferInline,SubServiceInline]
     list_per_page = 10
     filter_horizontal = ('region',)
@@ -142,7 +142,7 @@ class ServiceAdmin(NestedModelAdmin):
 
     list_display = ['name','link_provider','price','approaved']
 
-class SubServiceAdmin(NestedModelAdmin):
+class SubServiceAdmin(nested_admin.NestedModelAdmin):
     search_fields = ['name']
     @admin.display(description="الخدمة")
     def get_service(self):
@@ -296,7 +296,7 @@ class ServiceRequirementRequestAdmin(admin.ModelAdmin):
     list_filter = ['requirement__service__name']
     autocomplete_fields = ['client']
 
-class OfferAdmin(NestedModelAdmin):
+class OfferAdmin(nested_admin.NestedModelAdmin):
     def link_service(self,obj):
             redirect = OfferRiderct.redirect_to_service(obj)
             link = reverse(redirect['str'],args=[redirect['id']])
