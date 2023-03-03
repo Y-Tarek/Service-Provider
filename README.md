@@ -5,9 +5,7 @@ Api and Admin dashboard for service providers to host their services and manage 
 https://documenter.getpostman.com/view/20343410/2s8YzZQzWg
 
 ## Prerequisite
->python 3.9 prefered
-
->django 
+>python (3.9 prefered)
 
 >postgressql
 
