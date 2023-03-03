@@ -6,8 +6,8 @@ services:
         volumes:
             - ./:/usr/src/app/
         environment:
-            - DEBUG=True
-            - SECRET_KEY=foo
+            - DEBUG=False
+            # - SECRET_KEY=foo
             - SQL_ENGINE=django.db.backends.postgresql
             - SQL_DB=postgres
             - SQL_USER=postgres

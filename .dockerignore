@@ -1,4 +1,6 @@
-venv
+venv/
+static/
+/static
 *.sqlite3
 k8s
 *.pyc
